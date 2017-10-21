@@ -1,0 +1,15 @@
+{
+  "name": "decentralised_hackathon_2017",
+  "version": "1.0.0",
+  "description": "A service worker which lets you be part of a decentralized database",
+  "main": "service_worker.js",
+  "dependencies": {
+    "idb": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Nenniger",
+  "license": "ISC"
+}
