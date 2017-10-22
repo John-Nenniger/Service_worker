@@ -44,13 +44,11 @@ self.addEventListener('activate', function(event) {
   console.log("activation complete, database created");
 });
 
-function storeData(dataEvent){
-  let data = dataEvent.data;
-
+function storeData(data){
+  idbKeyval.set(,)
 }
 
-function getData(dataEvent){
-  let data = dataEvent.data;
+function getData(data){
 
 }
 
@@ -59,9 +57,16 @@ function getData(dataEvent){
 // });
 
 self.addEventListener('push', function(event) {
+  fetch('URL/ready')
+    .then(function(response){
+      let data = response.data
+      console.log(response)
+      if(response.method==='GET'){getData(data)};
+      if(response.method==='POST'){storeData(data)};
+    })
   console.log(`this is a push event : ${event}`);
   // Here I need to add an event listener to accept incoming data from John's server
-  // here I need to send that data to the database using idb
+
 });
 
 // self.addEventListener('fetch', function(event){
