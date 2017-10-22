@@ -5,6 +5,7 @@ importScripts('/__/firebase/3.9.0/firebase-app.js');
 importScripts('/__/firebase/3.9.0/firebase-messaging.js');
 importScripts('/__/firebase/init.js');
 importScripts('/node_modules/idb-keyval/dist/idb-keyval-min.js');
+// importScripts('/node_modules/idb/lib/idb.js');
 
 const messaging = firebase.messaging();
 
@@ -21,17 +22,27 @@ messaging.setBackgroundMessageHandler(function(payload) {
       notificationOptions);
 });
 
-// importScripts('/node_modules/idb/lib/idb.js');
 
-function createDB(){
-  idb.open('cat_data', 1, function(upgradeDB){
-    let basket = upgradeDB.createObjectStore('cats', {
-      keypath: 'id'
-    });
-    basket.put({id:1, name:'Chester', color:'beige'});
-    basket.put({id:2, name:'Poe', color:'white'});
-  });
-}
+// function createDB(){
+//   idb.open('cat_data', 1, function(upgradeDB){
+//     let basket = upgradeDB.createObjectStore('cats', {
+//       keypath: 'id'
+//     });
+//     basket.put({id:1, name:'Chester', color:'beige'});
+//     basket.put({id:2, name:'Poe', color:'white'});
+//   });
+// }
+
+self.addEventListener('install', () => {
+  // ^ install the service worker
+  //normally there would be some caching of assets here, but our site
+  // has almost no assets and this service worker is just for sending and recievign fetches
+})
+
+self.addEventListener('activate', function(event) {
+  // The activate event listener is automatically fired upon installation completing
+  console.log("activation complete, database created");
+});
 
 function storeData(dataEvent){
   let data = dataEvent.data;
@@ -46,20 +57,6 @@ function getData(dataEvent){
 // const dbPromise = idb.open('keyval-store', 1, upgradeDB => {
 //   upgradeDB.createObjectStore('keyval');
 // });
-
-// self.addEventListener('install', () => {
-//   // ^ install the service worker
-//   //normally there would be some caching of assets here, but our site
-//   // has almost no assets and this service worker is just for sending and recievign fetches
-// })
-
-self.addEventListener('activate', function(event) {
-  // The activate event listener is automatically fired upon installation completing
-  event.waitUntil(
-    createDB()
-  );
-  console.log("activation complete, database created");
-});
 
 self.addEventListener('push', function(event) {
   console.log(`this is a push event : ${event}`);
