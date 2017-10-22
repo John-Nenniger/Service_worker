@@ -4,37 +4,11 @@
 importScripts('/__/firebase/3.9.0/firebase-app.js');
 importScripts('/__/firebase/3.9.0/firebase-messaging.js');
 importScripts('/__/firebase/init.js');
+importScripts('/node_modules/idb-keyval/dist/idb-keyval-min.js');
+// importScripts('/node_modules/idb/lib/idb.js');
 
 const messaging = firebase.messaging();
 
-/**
- * Here is is the code snippet to initialize Firebase Messaging in the Service
- * Worker when your app is not hosted on Firebase Hosting.
-
- // [START initialize_firebase_in_sw]
- // Give the service worker access to Firebase Messaging.
- // Note that you can only use Firebase Messaging here, other Firebase libraries
- // are not available in the service worker.
- importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
- importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
-
- // Initialize the Firebase app in the service worker by passing in the
- // messagingSenderId.
- firebase.initializeApp({
-   'messagingSenderId': 'YOUR-SENDER-ID'
- });
-
- // Retrieve an instance of Firebase Messaging so that it can handle background
- // messages.
- const messaging = firebase.messaging();
- // [END initialize_firebase_in_sw]
- **/
-
-
-// If you would like to customize notifications that are received in the
-// background (Web app is closed or not in browser focus) then you should
-// implement this optional method.
-// [START background_handler]
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
@@ -47,4 +21,56 @@ messaging.setBackgroundMessageHandler(function(payload) {
   return self.registration.showNotification(notificationTitle,
       notificationOptions);
 });
-// [END background_handler]
+
+
+// function createDB(){
+//   idb.open('cat_data', 1, function(upgradeDB){
+//     let basket = upgradeDB.createObjectStore('cats', {
+//       keypath: 'id'
+//     });
+//     basket.put({id:1, name:'Chester', color:'beige'});
+//     basket.put({id:2, name:'Poe', color:'white'});
+//   });
+// }
+
+self.addEventListener('install', () => {
+  // ^ install the service worker
+  //normally there would be some caching of assets here, but our site
+  // has almost no assets and this service worker is just for sending and recievign fetches
+})
+
+self.addEventListener('activate', function(event) {
+  // The activate event listener is automatically fired upon installation completing
+  console.log("activation complete, database created");
+});
+
+function storeData(dataEvent){
+  let data = dataEvent.data;
+
+}
+
+function getData(dataEvent){
+  let data = dataEvent.data;
+
+}
+
+// const dbPromise = idb.open('keyval-store', 1, upgradeDB => {
+//   upgradeDB.createObjectStore('keyval');
+// });
+
+self.addEventListener('push', function(event) {
+  console.log(`this is a push event : ${event}`);
+  // Here I need to add an event listener to accept incoming data from John's server
+  // here I need to send that data to the database using idb
+});
+
+// self.addEventListener('fetch', function(event){
+//   console.log(`this was accepted by fetch`);
+// });
+
+// fetch('Andy_and_Johns_URL', {})
+
+
+// Here I'll add an event listener for a get request from John's server
+// Here I'll add a method to retrieve the requested data from the idb
+//
