@@ -46,14 +46,14 @@ self.addEventListener('activate', function(event) {
 
 function storeDataKeyVal(data){
   idbKeyval.set(data.key, data.value)
-    .then(() => return `stored ${data.key} and ${data.value}`)
-    .catch(err => return err)
+    .then(function(data){ return `stored ${data.key} and ${data.value}`})
+    .catch(err => console.log(err))
 }
 
 function getDataKeyVal(data){
   idbKeyval.get(data.key)
-    .then(val => return val)
-    .catch(err => return err)
+    .then(function(val) {return val})
+    .catch(err => console.log(err))
 }
 
 // const dbPromise = idb.open('keyval-store', 1, upgradeDB => {
@@ -67,15 +67,15 @@ self.addEventListener('push', function(event) {
       return response.json })
     .then(function(json){
       if (json.method==='GET' ){
-        getDataKeyVal(data).then(message => return message)
+        getDataKeyVal(data).then(function(message){ return message })
       } else if ( json.method==='POST' ){
-        storeDataKeyVal(data).then(message => return message)
+        storeDataKeyVal(data).then(function(message){ return message })
       } else {return `I don't know what to do with a request with ${response.method}`}
     })
-    .then(message => fetch('URL/ready', { method:'POST', body:`${message}`}
+    .then(function(message){ fetch('URL/ready', { method:'POST', body:`${message}`}
       .then(resp => console.log(resp))
       .catch(err => console.log(err))
-    )
+    )}
   )
   // console.log(`this is a push event : ${event}`);
   // Here I need to add an event listener to accept incoming data from John's server
