@@ -4,7 +4,10 @@
   "description": "A service worker which lets you be part of a decentralized database",
   "main": "service_worker.js",
   "dependencies": {
-    "idb": "^2.0.4"
+    "http-server": "^0.10.0",
+    "idb": "^2.0.4",
+    "idb-keyval": "^2.3.0",
+    "nodemon": "^1.12.1"
   },
   "devDependencies": {},
   "scripts": {
