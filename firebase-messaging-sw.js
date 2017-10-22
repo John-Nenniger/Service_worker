@@ -4,7 +4,7 @@
 importScripts('/__/firebase/3.9.0/firebase-app.js');
 importScripts('/__/firebase/3.9.0/firebase-messaging.js');
 importScripts('/__/firebase/init.js');
-importScripts('/node_modules/idb-keyval/dist/idb-keyval-min.js');
+importScripts('/idb-keyval-min.js');
 // importScripts('/node_modules/idb/lib/idb.js');
 
 const messaging = firebase.messaging();
