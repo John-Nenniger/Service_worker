@@ -1,4 +1,4 @@
-importScripts('.node_modules/idb/lib.js');
+importScripts('/node_modules/idb/lib/idb.js');
 
 function createDB(){
   idb.open('cat_data', 1, function(upgradeDB){
@@ -10,11 +10,11 @@ function createDB(){
   });
 }
 
-self.addEventListener('install', () => {
-  const dbPromise = idb.open('keyval-store', 1, upgradeDB => {
+const dbPromise = idb.open('keyval-store', 1, upgradeDB => {
   upgradeDB.createObjectStore('keyval');
-
 });
+
+self.addEventListener('install', () => {
 // ^ install the service worker
   console.log('Installation complete.');
   // Here I need to send a message to John's server to say that the node is online
@@ -27,7 +27,8 @@ self.addEventListener('push', function(event) {
   // here I need to send that data to the database using idb
 })
 
-
+fetch("Andy_and_Johns_URL")
+  .then()
 
 
 
