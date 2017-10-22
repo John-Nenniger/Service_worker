@@ -30,13 +30,23 @@
     </header>
 
     <main>
-      <div class="card">
-        <h1>Hello!</h1>
-        <p>
-          We need to access push notifications to sync your node with the Team5 Swarm™
-        </p>
-        <button id="button"
-                onclick="requestPermission()">Sign me up</button>
+      <div class="flex-container">
+        <div class="card">
+          <h1>Hello!</h1>
+          <p>
+            We need to access push notifications to sync your node with the Team5 Swarm™
+          </p>
+          <button id="button"
+                  onclick="requestPermission()">Sign me up</button>
+        </div>
+        <div class="card">
+          <div class="input-form">
+            <form action="/johnsURL" method="POST">
+              <input name="text" type="text">
+              <button type="submit">STORE</button>
+            </form>
+          </div>
+        </div>
       </div>
     </main>
 
